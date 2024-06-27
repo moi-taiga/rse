@@ -1,0 +1,23 @@
+name: updateOutput
+on: 
+  -  push 
+  -  workflow_dispatch
+
+jobs: 
+    update_job:
+        runs-on: ubuntu-latest
+        steps: 
+            - name: checkout repo and load python
+              uses: actions/checkout@v4
+
+            - name: setup Py  
+              uses: actions/setup-python@v5
+            
+            - name: run script 
+              run: python print.py > output.txt
+
+            - name: upload artifact
+              uses: actions/upload-artifact@v4
+              with: 
+                name: ouputFile
+                path: output.txt
